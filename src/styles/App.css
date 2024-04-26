@@ -23,12 +23,12 @@
     border: 2px solid teal;
 }
 
-.post__btns > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/*.post__btns > button {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
 
-    padding: 5px;
-    background: none;
-    border: 2px solid teal;
-}
+/*    padding: 5px;*/
+/*    background: none;*/
+/*    border: 2px solid teal;*/
+/*}*/
