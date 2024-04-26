@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.App {
+    width: 80%;
+}
+
+.post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px solid navy;
+}
+
+.post__btns > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+    background: none;
+    border: 2px solid navy;
+}

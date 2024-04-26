@@ -1,23 +1,19 @@
 import React, {useState} from 'react';
+import './styles/App.css'
+import PostList from "./components/PostList";
 
 function App() {
-  const [likes, setLikes] = useState(5);
+    const [posts, setPosts] = useState([
+        {id: 1, title: "JavaScript 1", body: "Description..."},
+        {id: 2, title: "JavaScript 2", body: "Description..."},
+        {id: 3, title: "JavaScript 3", body: "Description..."}
+    ]);
 
-  function increment() {
-    setLikes(likes + 1);
-  }
-
-  function decrement() {
-    setLikes(likes - 1);
-  }
-
-  return (
-    <div className="App">
-        <h1>{likes}</h1>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-    </div>
-  );
+    return (
+        <div className="App">
+            <PostList posts={posts} title="Список JS постов" />
+        </div>
+    );
 }
 
 export default App;
