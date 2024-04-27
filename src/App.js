@@ -1,56 +1,70 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './styles/App.css'
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
-import CustomSelect from "./components/UI/select/CustomSelect";
-import CustomInput from "./components/UI/input/CustomInput";
+import PostFilter from "./components/PostFilter";
+import CustomModal from "./components/UI/modal/CustomModal";
+import CustomButton from "./components/UI/button/CustomButton";
+import {usePosts} from "./hooks/usePosts";
+import PostService from "./API/PostService";
+import CustomLoader from "./components/UI/loader/CustomLoader";
+import {useFetching} from "./hooks/useFetching";
 
 function App() {
-    const [posts, setPosts] = useState([
-        {id: 1, title: "JavaScript 1", body: "Description..."},
-        {id: 2, title: "JavaScript 2", body: "Description..."},
-        {id: 3, title: "JavaScript 3", body: "123123123."}
-    ]);
-    const [selectedSort, setSelectedSort] = useState('')
+    const [posts, setPosts] = useState([]);
+    const [filter, setFilter] = useState({sort: '', query: ''});
+    const [modal, setModal] = useState(false);
+    const searchedSortedPosts = usePosts(posts, filter.sort, filter.query);
 
-    const options = [
-        {value: "title", name: "По названию"},
-        {value: "body", name: "По описанию"}
-    ];
+    const [fetchPosts, arePostsLoading, postsFetchingError] = useFetching(async () => {
+        const posts = await PostService.getAll();
+        setPosts(posts);
+    })
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost]);
+        setModal(false);
     };
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id));
     };
-    const sortPosts = (sort) => {
-        setSelectedSort(sort);
-        // console.log(sort);
-        setPosts([...posts].sort(
-            (a,b) =>
-                a[sort].localeCompare(b[sort])
-        ));
-    };
 
     return (
         <div className="App">
-            <PostForm create={createPost}/>
+            <CustomButton onClick={fetchPosts}>
+                Загрузить посты
+            </CustomButton>
+
+            <CustomButton style={{marginTop: '30px'}} onClick={() => setModal(true)}>
+                Создать пост
+            </CustomButton>
+
+            <CustomModal visible={modal} setVisible={setModal}>
+                <PostForm create={createPost} />
+            </CustomModal>
+
             <hr style={{margin: '15px 0', border: '1px solid teal'}}/>
-            <CustomInput
-                placeholder="Поиск..."
-            />
-            <CustomSelect
-                value={selectedSort}
-                onChange={sortPosts}
-                options={options}
-                defaultValue="Сортировка"
-            />
-            {posts.length
-                ?   <PostList remove={removePost} posts={posts} title="Список JS постов" />
-                :   <h1 style={{textAlign: 'center'}}>
-                        Посты не найдены
-                    </h1>
+
+            <PostFilter filter={filter} setFilter={setFilter} />
+
+            { postsFetchingError &&
+                <h1 style={{marginTop: '30px', textAlign: 'center'}}>
+                    ОШИБКА! {postsFetchingError}
+                </h1>
+            }
+
+            { arePostsLoading
+                ?   <div style={{marginTop: '30px', display: 'flex', alignItems: 'center', flexFlow: 'column nowrap'}}>
+                        <h1 style={{marginBottom: '50px', textAlign: 'center'}}>
+                            Загрузка
+                        </h1>
+                        <CustomLoader />
+                    </div>
+                :   <PostList remove={removePost} posts={searchedSortedPosts} title="Список JS постов" />
             }
         </div>
     );

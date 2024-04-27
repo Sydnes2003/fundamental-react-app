@@ -8,4 +8,5 @@
 
     background: transparent;
     cursor: pointer;
+    white-space: nowrap;
 }
