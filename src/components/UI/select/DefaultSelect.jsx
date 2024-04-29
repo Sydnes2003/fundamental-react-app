@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from './CustomSelect.module.css';
+import classes from './DefaultSelect.module.css';
 
-const CustomSelect = ({options, defaultValue, value, onChange}) => {
+const DefaultSelect = ({options, defaultValue, value, onChange, className}) => {
     return (
         <select
-            className={classes.CustomSelect}
+            className={[className, classes.DefaultSelect].join(' ').trim()}
             value={value}
             onChange={event => onChange(event.target.value)}
         >
@@ -18,4 +18,4 @@ const CustomSelect = ({options, defaultValue, value, onChange}) => {
     );
 };
 
-export default CustomSelect;
+export default DefaultSelect;

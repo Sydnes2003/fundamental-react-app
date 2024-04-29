@@ -1,17 +1,17 @@
 import React from 'react';
-import CustomButton from "./UI/button/CustomButton";
+import DefaultButton from "./UI/button/DefaultButton";
 
 const PostItem = (props) => {
     return (
         <div className="post">
             <article className="post__content">
-                <strong>{props.number}. {props.post.title}</strong>
+                <strong>{props.post.id}. {props.post.title}</strong>
                 <div>{props.post.body}</div>
             </article>
             <div className="post__btns">
-                <CustomButton onClick={() => props.remove(props.post)}>
+                <DefaultButton onClick={() => props.remove(props.post)}>
                     Удалить пост
-                </CustomButton>
+                </DefaultButton>
             </div>
         </div>
     );

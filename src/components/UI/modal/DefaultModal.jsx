@@ -1,20 +1,20 @@
 import React from 'react';
-import classes from './CustomModal.module.css'
+import classes from './DefaultModal.module.css'
 
-const CustomModal = ({children, visible, setVisible}) => {
+const DefaultModal = ({children, visible, setVisible, className}) => {
 
-    const rootClasses = [classes.CustomModal];
+    const rootClasses = [classes.DefaultModal, className];
     if (visible) {
         rootClasses.push(classes.active);
     }
 
     return (
         <div
-            className={rootClasses.join(' ')}
+            className={rootClasses.join(' ').trim()}
             onClick={() => setVisible(false)}
         >
             <div
-                className={classes.CustomModalContent}
+                className={classes.DefaultModalContent}
                 onClick={event => event.stopPropagation()}
             >
                 {children}
@@ -23,4 +23,4 @@ const CustomModal = ({children, visible, setVisible}) => {
     );
 };
 
-export default CustomModal;
+export default DefaultModal;

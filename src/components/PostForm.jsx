@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import CustomInput from "./UI/input/CustomInput";
-import CustomButton from "./UI/button/CustomButton";
+import DefaultInput from "./UI/input/DefaultInput";
+import DefaultButton from "./UI/button/DefaultButton";
 
-const PostForm = ({create}) => {
+const PostForm = ({create, className}) => {
 
     const [post, setPost] = useState({ title: '', body: '' });
 
@@ -18,20 +18,20 @@ const PostForm = ({create}) => {
     }
 
     return (
-        <form>
-            <CustomInput
+        <form className={className}>
+            <DefaultInput
                 value={post.title}
                 onChange={event => setPost({...post, title: event.target.value})}
                 type="text"
                 placeholder="Название поста"
             />
-            <CustomInput
+            <DefaultInput
                 value={post.body}
                 onChange={event => setPost({...post, body: event.target.value})}
                 type="text"
                 placeholder="Описание поста"
             />
-            <CustomButton onClick={addNewPost}>Создать пост</CustomButton>
+            <DefaultButton onClick={addNewPost}>Создать пост</DefaultButton>
         </form>
     );
 };
