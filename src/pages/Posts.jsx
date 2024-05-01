@@ -92,7 +92,7 @@ const Posts = () => {
                 title="Список JS постов"
             />
 
-            <div ref={lastElement} className="observer" style={{background: 'red', height: '20px'}}></div>
+            <div ref={lastElement} className="observer" style={{background: 'transparent', height: '1px'}}></div>
 
             {arePostsLoading &&
                 <div className='loader__wrapper'>
