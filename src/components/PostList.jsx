@@ -14,7 +14,7 @@ const PostList = ({posts, title, remove, className}) => {
 
     return (
         <div className={className}>
-            <h1 style={{textAlign: 'center'}}>
+            <h1 style={{textAlign: 'center', marginBottom: '30px'}}>
                 {title}
             </h1>
             <TransitionGroup>
@@ -24,7 +24,7 @@ const PostList = ({posts, title, remove, className}) => {
                         timeout={500}
                         classNames="post"
                     >
-                        <PostItem remove={remove} post={post}/>
+                        <PostItem post={post} remove={remove}/>
                     </CSSTransition>
                 )}
             </TransitionGroup>

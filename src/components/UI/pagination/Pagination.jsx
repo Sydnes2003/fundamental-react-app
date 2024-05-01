@@ -7,9 +7,10 @@ const Pagination = ({totalPages, changePage, page}) => {
 
     return (
         <div className='page__wrapper'>
-            { pagesArray.map((p) => {
+            { pagesArray.map((p, index) => {
                 return (
                     <DefaultButton
+                        key={index}
                         className='page-button'
                         id={page === p ? 'page-button_current' : ''}
                         onClick={() => changePage(p)}
